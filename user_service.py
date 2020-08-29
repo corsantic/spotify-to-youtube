@@ -4,29 +4,33 @@ import json
 
 import base64
 
+
 class UserService:
 
     def __init__(self):
         pass
 
-
-    def authenticate(self):
+    def authenticate_spotify(self):
         secret = SecretService()
         headers = {}
         data = {}
 
-        client_id =secret.get_spotify_client_id();
-        client_secret =secret.get_spotify_secret_key();
-        url = "https://accounts.spotify.com/api/token"        
-        message = f'{client_id}:{client_secret}'
-        messageBytes = message.encode('ascii')
-        base64Bytes = base64.b64encode(messageBytes)
-        base64Message = base64Bytes.decode('ascii')
-        
-        headers['Authorization'] = f"Basic {base64Message}"
-        data['grant_type'] = "client_credentials"
+        client_id = secret.get_spotify_client_id()
+        client_secret = secret.get_spotify_secret_key()
+        url = "https://accounts.spotify.com/api/token"
+        # message = f'{client_id}:{client_secret}'
+        # messageBytes = message.encode('ascii')
+        # base64Bytes = base64.b64encode(messageBytes)
+        # base64Message = base64Bytes.decode('ascii')
 
-        r = requests.post(url, headers=headers, data=data)
+        # headers['Authorization'] = f"Basic {base64Message}"
+        data['grant_type'] = "client_credentials"
+        data['response_type'] = "code"
+        data['redirect_uri'] = "https://example.com/"
+        data['client_secret'] = client_secret
+        data['client_id'] = client_id
+
+        r = requests.post(url, data=data)
 
         print(r.json())
         token = r.json()['access_token']
