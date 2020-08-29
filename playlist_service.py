@@ -7,9 +7,7 @@ from secret_service import SecretService
 
 class PlayListService:
 
-    def __init__(self, spotify_secret, spotify_client_id, spotify_token, spotify_username):
-        self.spotify_secret = spotify_secret
-        self.spotify_client_id = spotify_client_id
+    def __init__(self, spotify_token, spotify_username):
         self.spotify_token = spotify_token
         self.spotify_username = spotify_username
         pass
@@ -28,14 +26,14 @@ class PlayListService:
         })
         url = f'https://api.spotify.com/v1/users/{self.spotify_username}/playlists'
 
-        print(self.spotify_secret)
+        
         response = requests.post(url,
                                  data=request_body,
                                  headers={'Content-Type': 'application/json',
                                           'Authorization': f'Bearer {self.spotify_token}'})
 
         response_json = response.json()
-        print(response_json)
+        # print(response_json)
 
         return response_json['id']
 
@@ -46,7 +44,7 @@ class PlayListService:
         response = requests.get(url, headers={'Content-Type': 'application/json',
                                               'Authorization': f'Bearer {self.spotify_token}'})
         response_json = response.json()
-        print(response_json)
+        # print(response_json)
         songs = response_json["tracks"]["items"]
         return songs
 

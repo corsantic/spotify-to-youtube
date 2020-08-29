@@ -5,12 +5,12 @@ class SecretService:
 
     def get_spotify_secret_key(self):
         secret = self.get_stripped_str(0, 1, ':')
-        print(secret)
+        # print(secret)
         return secret
 
     def get_spotify_client_id(self):
         client_id = self.get_stripped_str(1, 1, ':')
-        print(client_id)
+        # print(client_id)
         return client_id
 
     def get_youtube_secret_key(self):
@@ -21,7 +21,7 @@ class SecretService:
 
     def get_spotify_token_from_file(self):
         token = self.get_stripped_str(2, 1, ':')
-        print(token)
+        # print(token)
         return token
     def get_spotify_username(self):
         username = self.get_stripped_str(3, 1, ':')
